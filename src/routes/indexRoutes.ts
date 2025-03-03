@@ -5,7 +5,7 @@ import addressRoutes from "./addressRoutes";
 const indexRoutes = express.Router();
 
 // indexRoutes.route("/users");
-indexRoutes.use("/users", userRoutes);
-indexRoutes.use("/address", addressRoutes);
+indexRoutes.use(userRoutes);
+indexRoutes.use(addressRoutes);
 
 export default indexRoutes;

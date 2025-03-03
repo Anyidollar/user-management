@@ -5,8 +5,7 @@ import { v4 } from "uuid";
 
 export const createAddress = async (request: Request, response: Response) => {
   try {
-    const { userId } = request.params;
-    const { street, city, state, zipCode } = request.body;
+    const { userId, street, city, state, zipCode } = request.body;
 
     const user = await User.findByPk(userId);
 
@@ -25,6 +24,7 @@ export const createAddress = async (request: Request, response: Response) => {
     }
 
     const id = v4();
+
     // Create new address
     const newAddress = await Address.create({
       id,
