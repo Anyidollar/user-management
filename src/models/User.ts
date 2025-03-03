@@ -1,5 +1,6 @@
 import { Model, DataTypes } from "sequelize";
 import { database } from "../config/database";
+import Address from "./Address";
 
 export interface UserAttributes {
   id: string;
@@ -44,5 +45,9 @@ User.init(
     timestamps: true,
   }
 );
+
+// Define the relationship
+User.hasOne(Address, { foreignKey: "userId", as: "address" });
+Address.belongsTo(User, { foreignKey: "userId", as: "user" });
 
 export default User;
