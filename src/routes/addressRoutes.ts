@@ -6,7 +6,7 @@ import { updateAddress } from "../controllers/addressController/updateAddress";
 const addressRoutes = express.Router();
 
 addressRoutes.post("/create-address", createAddress);
-addressRoutes.patch("/update-address", updateAddress);
+addressRoutes.patch("/update-address/:userId", updateAddress);
 addressRoutes.get("/get-address/:userId", getAddress);
 
 export default addressRoutes;
