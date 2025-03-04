@@ -31,7 +31,7 @@ app.use((0, cookie_parser_1.default)());
 app.use((0, morgan_1.default)("dev"));
 // Routes
 app.get("/", (req, res) => {
-    res.json({ message: "Hello Beautiful World" });
+    res.send("Hello, Beautiful World");
 });
 app.use("/api", indexRoutes_1.default);
 app.use(errorHandler_1.errorHandler);

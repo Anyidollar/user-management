@@ -22,7 +22,7 @@ app.use(logger("dev"));
 
 // Routes
 app.get("/", (req: Request, res: Response) => {
-  res.json({ message: "Hello Beautiful World" });
+  res.send("Hello, Beautiful World");
 });
 
 app.use("/api", indexRoutes);

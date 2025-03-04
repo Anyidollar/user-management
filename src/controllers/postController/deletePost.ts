@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import Post from "../../models/Post";
+import Post from "../../models/Post"; // Ensure this path is correct
 
 export const deletePost = async (
   request: Request,

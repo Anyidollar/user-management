@@ -7,9 +7,18 @@ export interface PostAttributes {
   title: string;
   body: string;
   userId: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
-export class Post extends Model<PostAttributes> {}
+export class Post extends Model<PostAttributes> implements PostAttributes {
+  public id!: string;
+  public title!: string;
+  public body!: string;
+  public userId!: string;
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
+}
 
 Post.init(
   {

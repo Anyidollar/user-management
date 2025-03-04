@@ -1,18 +1,14 @@
-import { Request, Response, NextFunction } from "express";
-import Post from "../../models/Post";
+import { Request, Response } from "express";
 import User from "../../models/User";
+import Post from "../../models/Post";
 
-export const getUserPosts = async (
-  request: Request,
-  response: Response,
-  next: NextFunction
-) => {
+export const getUserPosts = async (req: Request, res: Response) => {
   try {
-    const userId = request.query.userId as string;
+    const userId = req.query.userId as string;
 
     // Validate the userId parameter
     if (!userId) {
-      response.status(400).json({
+      res.status(400).json({
         error: true,
         message: "userId is required as a query parameter",
       });
@@ -22,7 +18,7 @@ export const getUserPosts = async (
     // Check if the user exists
     const user = await User.findByPk(userId);
     if (!user) {
-      response.status(404).json({ error: true, message: "User not found" });
+      res.status(404).json({ error: true, message: "User not found" });
       return;
     }
 
@@ -32,12 +28,13 @@ export const getUserPosts = async (
       order: [["createdAt", "DESC"]],
     });
 
-    response.status(200).json({
+    res.status(200).json({
       error: false,
       message: "User posts retrieved successfully",
       data: posts,
     });
   } catch (error) {
-    next(error);
+    console.error(error);
+    res.status(500).json({ error: true, message: "Internal server error" });
   }
 };
