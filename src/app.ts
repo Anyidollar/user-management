@@ -19,10 +19,10 @@ app.use(cookieParser());
 app.use(logger("dev"));
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("Hello Betavon-AI-Solution");
+  res.send("Hello Beautiful World");
 });
 
-app.use("/v1", indexRoutes);
+app.use("/api", indexRoutes);
 app.use(errorHandler);
 
 database

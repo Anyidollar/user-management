@@ -29,9 +29,9 @@ app.use((0, cors_1.default)());
 app.use((0, cookie_parser_1.default)());
 app.use((0, morgan_1.default)("dev"));
 app.get("/", (req, res) => {
-    res.send("Hello Betavon-AI-Solution");
+    res.send("Hello Beautiful World");
 });
-app.use("/v1", indexRoutes_1.default);
+app.use("/api", indexRoutes_1.default);
 app.use(errorHandler_1.errorHandler);
 database_1.database
     .sync({})
