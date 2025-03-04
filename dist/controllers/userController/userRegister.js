@@ -19,11 +19,20 @@ const password_1 = require("../../services/password");
 const userRegister = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { lastName, firstName, email, password } = request.body;
+        //Validate request body
+        if (!lastName || !firstName || !email || !password) {
+            response.status(400).json({
+                error: true,
+                message: "All fields (lastName, firstName, email, password) are required.",
+            });
+            return;
+        }
         const existingEmail = yield User_1.default.findOne({ where: { email } });
         if (existingEmail) {
-            response
-                .status(400)
-                .json({ error: true, message: `${email} already exists` });
+            response.status(409).json({
+                error: true,
+                message: `User with email ${email} already exists.`,
+            });
             return;
         }
         const id = (0, uuid_1.v4)();
@@ -36,8 +45,8 @@ const userRegister = (request, response) => __awaiter(void 0, void 0, void 0, fu
             lastName,
             password: hashedPassword,
         });
-        response.status(200).json({
-            message: "Registration successful",
+        response.status(201).json({
+            message: "User registration successful",
             error: false,
             data: newUser,
         });

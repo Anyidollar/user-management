@@ -7,6 +7,7 @@ import cookieParser from "cookie-parser";
 import { HttpError } from "http-errors";
 import indexRoutes from "./routes/indexRoutes";
 import { database } from "./config/database";
+import { errorHandler } from "./middleware/errorHandler";
 
 const app = express();
 dotenv.config();
@@ -22,6 +23,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.use("/v1", indexRoutes);
+app.use(errorHandler);
 
 database
   .sync({})
@@ -32,8 +34,31 @@ database
     console.log(err);
   });
 
-app.listen(process.env.PORT || 3000, () => {
+const server = app.listen(process.env.PORT || 3000, () => {
   console.log(`Server running on port ${process.env.PORT}`);
 });
+
+//Graceful shutdown
+const gracefulShutdown = async () => {
+  console.log("\n🔄 Initiating graceful shutdown...");
+
+  try {
+    await database.close();
+    console.log("Database connection closed");
+
+    //server closed successfully
+    server.close(() => {
+      console.log("Server stopped listening for requests");
+      process.exit(0);
+    });
+  } catch (error) {
+    console.error("Error during shutdown:", error);
+    process.exit(1);
+  }
+};
+
+// Handle termination signals
+process.on("SIGINT", gracefulShutdown);
+process.on("SIGTERM", gracefulShutdown);
 
 export default app;

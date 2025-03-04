@@ -6,7 +6,7 @@ import { deletePost } from "../controllers/postController/deletePost";
 const postRoutes = express.Router();
 
 postRoutes.post("/posts", createPost);
-postRoutes.post("/delete-posts/:id", deletePost);
+postRoutes.delete("/delete-posts/:id", deletePost);
 postRoutes.get("/get-posts", getUserPosts);
 
 export default postRoutes;

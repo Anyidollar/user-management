@@ -19,6 +19,13 @@ const getUsers = (request, response) => __awaiter(void 0, void 0, void 0, functi
         let { pageNumber, pageSize } = request.query;
         const page = parseInt(pageNumber) || 0;
         const size = parseInt(pageSize) || 10;
+        if (page < 0 || size <= 0) {
+            response.status(400).json({
+                error: true,
+                message: "Invalid pagination parameters. pageNumber must be >= 0, pageSize must be > 0.",
+            });
+            return;
+        }
         const { count, rows: users } = yield User_1.default.findAndCountAll({
             offset: page * size,
             limit: size,
@@ -35,6 +42,7 @@ const getUsers = (request, response) => __awaiter(void 0, void 0, void 0, functi
         });
     }
     catch (error) {
+        console.error("Error in fetching users:", error);
         response.status(500).json({
             error: true,
             message: "Internal server error",

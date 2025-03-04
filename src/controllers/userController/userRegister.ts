@@ -7,12 +7,23 @@ export const userRegister = async (request: Request, response: Response) => {
   try {
     const { lastName, firstName, email, password } = request.body;
 
+    //Validate request body
+    if (!lastName || !firstName || !email || !password) {
+      response.status(400).json({
+        error: true,
+        message:
+          "All fields (lastName, firstName, email, password) are required.",
+      });
+      return;
+    }
+
     const existingEmail = await User.findOne({ where: { email } });
 
     if (existingEmail) {
-      response
-        .status(400)
-        .json({ error: true, message: `${email} already exists` });
+      response.status(409).json({
+        error: true,
+        message: `User with email ${email} already exists.`,
+      });
       return;
     }
 
@@ -29,11 +40,10 @@ export const userRegister = async (request: Request, response: Response) => {
       password: hashedPassword,
     });
 
-    response.status(200).json({
-        message: "Registration successful",
+    response.status(201).json({
+      message: "User registration successful",
       error: false,
       data: newUser,
-      
     });
   } catch (error: any) {
     response.status(500).json({

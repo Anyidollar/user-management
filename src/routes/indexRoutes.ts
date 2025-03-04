@@ -5,7 +5,7 @@ import postRoutes from "./postRoutes";
 
 const indexRoutes = express.Router();
 
-// indexRoutes.route("/users");
+// indexRoutes.route();
 indexRoutes.use(userRoutes);
 indexRoutes.use(addressRoutes);
 indexRoutes.use(postRoutes);

@@ -8,6 +8,15 @@ export const getUsers = async (request: Request, response: Response) => {
     const page = parseInt(pageNumber as string) || 0;
     const size = parseInt(pageSize as string) || 10;
 
+    if (page < 0 || size <= 0) {
+      response.status(400).json({
+        error: true,
+        message:
+          "Invalid pagination parameters. pageNumber must be >= 0, pageSize must be > 0.",
+      });
+      return;
+    }
+
     const { count, rows: users } = await User.findAndCountAll({
       offset: page * size,
       limit: size,
@@ -24,6 +33,7 @@ export const getUsers = async (request: Request, response: Response) => {
       data: users,
     });
   } catch (error: any) {
+    console.error("Error in fetching users:", error);
     response.status(500).json({
       error: true,
       message: "Internal server error",
