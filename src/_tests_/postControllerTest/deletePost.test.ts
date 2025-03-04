@@ -1,7 +1,7 @@
 import request from "supertest";
-import app from "../app"; 
-import Post from "../models/Post"; 
-import { database } from "../config/database"; 
+import app from "../../app";
+import Post from "../../models/Post";
+import { database } from "../../config/database";
 
 describe("deletePost", () => {
   let postId: string;
@@ -16,13 +16,13 @@ describe("deletePost", () => {
       title: "Test Post",
       body: "This is a test post",
     });
-    postId = post.id; 
+    postId = post.id;
   });
 
   afterAll(async () => {
     // Clean up the database
     await Post.destroy({ where: {} });
-    await database.close(); // Close the database connection
+    await database.close();
   });
 
   it("should delete an existing post", async () => {

@@ -1,7 +1,7 @@
 import request from "supertest";
-import app from "../app";
-import User from "../models/User";
-import Post from "../models/Post";
+import app from "../../app";
+import User from "../../models/User";
+import Post from "../../models/Post";
 
 describe("createPost", () => {
   let userId: string;

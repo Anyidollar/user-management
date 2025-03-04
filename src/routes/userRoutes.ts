@@ -9,6 +9,6 @@ const userRoutes = express.Router();
 userRoutes.post("/register", userRegister);
 userRoutes.get("/get-users", getUsers);
 userRoutes.get("/user-count", getUserCount);
-userRoutes.get("/user/:id", getUserById);
+userRoutes.get("/users/:id", getUserById);
 
 export default userRoutes;

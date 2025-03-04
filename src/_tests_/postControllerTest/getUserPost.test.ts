@@ -1,8 +1,8 @@
 import request from "supertest";
-import app from "../app";
-import User from "../models/User";
-import Post from "../models/Post";
-import { database } from "../config/database";
+import app from "../../app";
+import User from "../../models/User";
+import Post from "../../models/Post";
+import { database } from "../../config/database";
 
 describe("getUserPosts", () => {
   let userId: string;
