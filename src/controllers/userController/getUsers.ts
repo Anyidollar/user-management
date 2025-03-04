@@ -1,7 +1,11 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import User from "../../models/User";
 
-export const getUsers = async (request: Request, response: Response) => {
+export const getUsers = async (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
   try {
     let { pageNumber, pageSize } = request.query;
 
@@ -32,12 +36,7 @@ export const getUsers = async (request: Request, response: Response) => {
       totalPages: Math.ceil(count / size),
       data: users,
     });
-  } catch (error: any) {
-    console.error("Error in fetching users:", error);
-    response.status(500).json({
-      error: true,
-      message: "Internal server error",
-      errorMessage: error.message,
-    });
+  } catch (error) {
+    next(error);
   }
 };

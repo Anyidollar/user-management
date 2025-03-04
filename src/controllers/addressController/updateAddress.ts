@@ -1,8 +1,12 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import Address from "../../models/Address";
 import User from "../../models/User";
 
-export const updateAddress = async (request: Request, response: Response) => {
+export const updateAddress = async (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
   try {
     const { userId } = request.params;
     const { street, city, state, zipCode } = request.body;
@@ -31,11 +35,7 @@ export const updateAddress = async (request: Request, response: Response) => {
       message: "Address updated successfully",
       data: address,
     });
-  } catch (error: any) {
-    response.status(500).json({
-      error: true,
-      message: "Internal server error",
-      errorMessage: error.message,
-    });
+  } catch (error) {
+    next(error);
   }
 };

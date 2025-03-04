@@ -1,8 +1,12 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import User from "../../models/User";
 import Address from "../../models/Address";
 
-export const getUserById = async (request: Request, response: Response) => {
+export const getUserById = async (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
   try {
     const { id } = request.params;
 
@@ -26,11 +30,7 @@ export const getUserById = async (request: Request, response: Response) => {
       message: "User retrieved successfully",
       data: user,
     });
-  } catch (error: any) {
-    response.status(500).json({
-      error: true,
-      message: "Internal server error",
-      errorMessage: error.message,
-    });
+  } catch (error) {
+    next(error);
   }
 };

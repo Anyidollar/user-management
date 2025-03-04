@@ -1,7 +1,11 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import Post from "../../models/Post";
 
-export const deletePost = async (request: Request, response: Response) => {
+export const deletePost = async (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
   try {
     const { id } = request.params;
 
@@ -22,11 +26,7 @@ export const deletePost = async (request: Request, response: Response) => {
       error: false,
       message: "Post deleted successfully",
     });
-  } catch (error: any) {
-    response.status(500).json({
-      error: true,
-      message: "Internal server error",
-      errorMessage: error.message,
-    });
+  } catch (error) {
+    next(error);
   }
 };

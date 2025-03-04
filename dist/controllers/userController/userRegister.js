@@ -16,7 +16,7 @@ exports.userRegister = void 0;
 const User_1 = __importDefault(require("../../models/User"));
 const uuid_1 = require("uuid");
 const password_1 = require("../../services/password");
-const userRegister = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+const userRegister = (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { lastName, firstName, email, password } = request.body;
         //Validate request body
@@ -52,11 +52,7 @@ const userRegister = (request, response) => __awaiter(void 0, void 0, void 0, fu
         });
     }
     catch (error) {
-        response.status(500).json({
-            error: true,
-            message: "Internal server error",
-            errorMessage: error.message,
-        });
+        next(error);
     }
 });
 exports.userRegister = userRegister;

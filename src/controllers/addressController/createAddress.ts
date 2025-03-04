@@ -1,9 +1,13 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import Address from "../../models/Address";
 import User from "../../models/User";
 import { v4 } from "uuid";
 
-export const createAddress = async (request: Request, response: Response) => {
+export const createAddress = async (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
   try {
     const { userId, street, city, state, zipCode } = request.body;
 
@@ -40,11 +44,7 @@ export const createAddress = async (request: Request, response: Response) => {
       message: "Address created successfully",
       data: newAddress,
     });
-  } catch (error: any) {
-    response.status(500).json({
-      error: true,
-      message: "Internal server error",
-      errorMessage: error.message,
-    });
+  } catch (error) {
+    next(error);
   }
 };

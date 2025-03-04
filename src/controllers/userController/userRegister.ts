@@ -1,9 +1,13 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import User from "../../models/User";
 import { v4 } from "uuid";
 import { hashPassword } from "../../services/password";
 
-export const userRegister = async (request: Request, response: Response) => {
+export const userRegister = async (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
   try {
     const { lastName, firstName, email, password } = request.body;
 
@@ -45,11 +49,7 @@ export const userRegister = async (request: Request, response: Response) => {
       error: false,
       data: newUser,
     });
-  } catch (error: any) {
-    response.status(500).json({
-      error: true,
-      message: "Internal server error",
-      errorMessage: error.message,
-    });
+  } catch (error) {
+    next(error);
   }
 };

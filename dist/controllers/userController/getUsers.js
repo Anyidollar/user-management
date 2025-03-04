@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getUsers = void 0;
 const User_1 = __importDefault(require("../../models/User"));
-const getUsers = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+const getUsers = (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let { pageNumber, pageSize } = request.query;
         const page = parseInt(pageNumber) || 0;
@@ -42,12 +42,7 @@ const getUsers = (request, response) => __awaiter(void 0, void 0, void 0, functi
         });
     }
     catch (error) {
-        console.error("Error in fetching users:", error);
-        response.status(500).json({
-            error: true,
-            message: "Internal server error",
-            errorMessage: error.message,
-        });
+        next(error);
     }
 });
 exports.getUsers = getUsers;

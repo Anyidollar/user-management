@@ -1,9 +1,13 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import { v4 } from "uuid";
 import Post from "../../models/Post";
 import User from "../../models/User";
 
-export const createPost = async (request: Request, response: Response) => {
+export const createPost = async (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
   try {
     const { title, body, userId } = request.body;
 
@@ -38,11 +42,7 @@ export const createPost = async (request: Request, response: Response) => {
       message: "Post created successfully",
       data: post,
     });
-  } catch (error: any) {
-    response.status(500).json({
-      error: true,
-      message: "Internal server error",
-      errorMessage: error.message,
-    });
+  } catch (error) {
+    next(error);
   }
 };

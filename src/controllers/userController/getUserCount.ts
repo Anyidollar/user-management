@@ -1,7 +1,11 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import User from "../../models/User";
 
-export const getUserCount = async (request: Request, response: Response) => {
+export const getUserCount = async (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
   try {
     const count = await User.count();
 
@@ -10,11 +14,7 @@ export const getUserCount = async (request: Request, response: Response) => {
       message: "User count retrieved successfully",
       data: count,
     });
-  } catch (error: any) {
-    response.status(500).json({
-      error: true,
-      message: "Internal server error",
-      errorMessage: error.message,
-    });
+  } catch (error) {
+    next(error);
   }
 };
