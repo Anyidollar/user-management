@@ -1,7 +1,7 @@
 import request from "supertest";
-import app from "../../app";
-import User from "../../models/User";
-import { database } from "../../config/database";
+import app from "../app";
+import User from "../models/User";
+import { database } from "../config/database";
 
 describe("getUserCount", () => {
   beforeAll(async () => {

@@ -1,7 +1,7 @@
 import request from "supertest";
-import app from "../../app";
-import Post from "../../models/Post";
-import { database } from "../../config/database";
+import app from "../app";
+import Post from "../models/Post";
+import { database } from "../config/database";
 
 describe("deletePost", () => {
   let postId: string;

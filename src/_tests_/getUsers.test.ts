@@ -1,7 +1,7 @@
 import request from "supertest";
-import app from "../../app"; // Adjust the path to your app
-import User from "../../models/User"; // Ensure this path is correct
-import { database } from "../../config/database"; // Import the database instance
+import app from "../app"; // Adjust the path to your app
+import User from "../models/User"; // Ensure this path is correct
+import { database } from "../config/database"; // Import the database instance
 
 describe("getUsers", () => {
   beforeAll(async () => {
@@ -14,7 +14,7 @@ describe("getUsers", () => {
         id: "user-1",
         firstName: "John",
         lastName: "Doe",
-        email: "john.doe@example.com",
+        email: "alice.smith@example.com",
         password: "password123",
       },
       {
@@ -28,7 +28,7 @@ describe("getUsers", () => {
         id: "user-3",
         firstName: "Alice",
         lastName: "Smith",
-        email: "alice.smith@example.com",
+        email: "alice.smithta@example.com",
         password: "password123",
       },
     ]);
@@ -37,7 +37,7 @@ describe("getUsers", () => {
   afterAll(async () => {
     // Clean up the database
     await User.destroy({ where: {} });
-    await database.close(); // Close the database connection
+    await database.close();
   });
 
   it("should retrieve users with valid pagination parameters", async () => {

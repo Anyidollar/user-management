@@ -1,8 +1,8 @@
 import request from "supertest";
-import app from "../../app";
-import User from "../../models/User";
-import Address from "../../models/Address";
-import { database } from "../../config/database";
+import app from "../app";
+import User from "../models/User";
+import Address from "../models/Address";
+import { database } from "../config/database";
 
 describe("createAddress", () => {
   let userId: string;
