@@ -70,3 +70,11 @@ Before running the project, ensure you have the following installed:
    git clone https://github.com/your-username/user-management.git
    cd user-management
    ```
+
+## Live Deployed API
+
+🔗 **Base URL:** [https://user-management-b5gt.onrender.com]
+
+## Postman Documentation:
+[https://lunar-capsule-136069.postman.co/workspace/New-Team-Workspace~bcfb6f56-283b-49ed-9b93-bbe4a1396f0f/collection/29787712-923b18e0-3ca5-4302-ae73-6c5d8d8d9691?action=share&creator=29787712]
+
