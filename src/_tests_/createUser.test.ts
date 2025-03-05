@@ -5,12 +5,15 @@ import { database } from "../config/database";
 
 describe("userRegister", () => {
   beforeAll(async () => {
-    await database.sync({ force: true });
+    await database.sync({ force: true }); // Force sync to recreate tables
+  });
+
+  beforeEach(async () => {
+    await User.destroy({ where: {} }); // Clean up all users before each test
   });
 
   afterAll(async () => {
-    await User.destroy({ where: {} });
-    await database.close();
+    await database.close(); // Close the database connection
   });
 
   it("should register a new user", async () => {
@@ -61,7 +64,7 @@ describe("userRegister", () => {
     expect(response.status).toBe(409);
     expect(response.body.error).toBe(true);
     expect(response.body.message).toBe(
-      "User with email jane.doe@example.com already exists."
+      "User with email ifeanyiokoro123@gmail.com already exists."
     );
   });
 });

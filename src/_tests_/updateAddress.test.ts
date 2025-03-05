@@ -81,7 +81,7 @@ describe("updateAddress", () => {
     });
 
     const response = await request(app)
-      .patch(`/api/update-address/${userWithoutAddress}`) 
+      .patch(`/api/update-address/${userWithoutAddress.id}`)
       .send({
         street: "456 Elm St",
         city: "Los Angeles",

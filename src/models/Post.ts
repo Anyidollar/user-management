@@ -1,23 +1,11 @@
 import { Model, DataTypes } from "sequelize";
-import { database } from "../config/database";
-import User from "./User";
+import { database } from "../config/database"; 
 
-export interface PostAttributes {
-  id: string;
-  title: string;
-  body: string;
-  userId: string;
-  createdAt?: Date;
-  updatedAt?: Date;
-}
-
-export class Post extends Model<PostAttributes> implements PostAttributes {
-  public id!: string;
-  public title!: string;
-  public body!: string;
-  public userId!: string;
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+export class Post extends Model {
+  id!: string;
+  userId!: string;
+  title!: string;
+  body!: string;
 }
 
 Post.init(
@@ -28,27 +16,22 @@ Post.init(
       allowNull: false,
       defaultValue: DataTypes.UUIDV4,
     },
+    userId: {
+      type: DataTypes.UUID,
+      allowNull: false,
+    },
     title: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     body: {
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING,
       allowNull: false,
-    },
-    userId: {
-      type: DataTypes.UUID,
-      allowNull: false,
-      references: {
-        model: User,
-        key: "id",
-      },
-      onDelete: "CASCADE",
     },
   },
   {
     sequelize: database,
-    tableName: "Posts",
+    tableName: "posts",
     timestamps: true,
   }
 );

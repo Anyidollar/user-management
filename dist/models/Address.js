@@ -11,6 +11,7 @@ Address.init({
         type: sequelize_1.DataTypes.UUID,
         primaryKey: true,
         allowNull: false,
+        defaultValue: sequelize_1.DataTypes.UUIDV4,
     },
     userId: {
         type: sequelize_1.DataTypes.UUID,

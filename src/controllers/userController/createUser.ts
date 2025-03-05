@@ -11,7 +11,7 @@ export const userRegister = async (
   try {
     const { lastName, firstName, email, password } = request.body;
 
-    //Validate request body
+    // Validate request body
     if (!lastName || !firstName || !email || !password) {
       response.status(400).json({
         error: true,
@@ -21,6 +21,7 @@ export const userRegister = async (
       return;
     }
 
+    // Check if the email already exists
     const existingEmail = await User.findOne({ where: { email } });
 
     if (existingEmail) {
@@ -31,11 +32,10 @@ export const userRegister = async (
       return;
     }
 
+    // Create new user
     const id = v4();
-
     const hashedPassword = await hashPassword(password);
 
-    // Create new user
     const newUser = await User.create({
       id,
       email,

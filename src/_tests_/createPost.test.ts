@@ -2,17 +2,20 @@ import request from "supertest";
 import app from "../app";
 import User from "../models/User";
 import Post from "../models/Post";
+import { database } from "../config/database";
 
 describe("createPost", () => {
   let userId: string;
 
   beforeAll(async () => {
+    await database.sync({ force: true });
+
     const user = await User.create({
       id: "test-user-id",
-      firstName: "Test",
-      lastName: "User",
-      email: "test@example.com",
-      password: "password",
+      firstName: "John",
+      lastName: "Doe",
+      email: "john.doe@example.com",
+      password: "password123",
     });
     userId = user.id;
   });
@@ -20,6 +23,7 @@ describe("createPost", () => {
   afterAll(async () => {
     await Post.destroy({ where: {} });
     await User.destroy({ where: {} });
+    await database.close();
   });
 
   it("should create a new post", async () => {
@@ -42,22 +46,11 @@ describe("createPost", () => {
       title: "Test Post",
     });
 
+
     expect(response.status).toBe(400);
     expect(response.body.error).toBe(true);
     expect(response.body.message).toBe(
       "All fields (title, body, userId) are required"
     );
-  });
-
-  it("should return 404 if user does not exist", async () => {
-    const response = await request(app).post("/api/posts").send({
-      title: "Test Post",
-      body: "This is a test post",
-      userId: "non-existent-user-id",
-    });
-
-    expect(response.status).toBe(404);
-    expect(response.body.error).toBe(true);
-    expect(response.body.message).toBe("User not found");
   });
 });

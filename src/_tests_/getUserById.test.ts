@@ -40,11 +40,16 @@ describe("getUserById", () => {
     expect(response.status).toBe(200);
     expect(response.body.error).toBe(false);
     expect(response.body.message).toBe("User retrieved successfully");
+
     expect(response.body.data.id).toBe(userId);
     expect(response.body.data.firstName).toBe("John");
     expect(response.body.data.lastName).toBe("Doe");
     expect(response.body.data.email).toBe("john.doe@example.com");
+
+    const address = await Address.findOne({ where: { userId } });
+
     expect(response.body.data.address).toEqual({
+      id: address?.id,
       street: "123 Main St",
       city: "New York",
       state: "NY",

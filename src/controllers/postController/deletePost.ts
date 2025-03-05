@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import Post from "../../models/Post"; // Ensure this path is correct
+import Post from "../../models/Post"; 
 
 export const deletePost = async (
   request: Request,
@@ -26,6 +26,7 @@ export const deletePost = async (
       error: false,
       message: "Post deleted successfully",
     });
+    return;
   } catch (error) {
     next(error);
   }

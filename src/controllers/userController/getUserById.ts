@@ -16,13 +16,14 @@ export const getUserById = async (
         {
           model: Address,
           as: "address",
-          attributes: ["street", "city", "state", "zipCode"],
+          attributes: ["id", "street", "city", "state", "zipCode"],
         },
       ],
     });
 
     if (!user) {
       response.status(404).json({ error: true, message: "User not found" });
+      return;
     }
 
     response.status(200).json({
@@ -30,6 +31,7 @@ export const getUserById = async (
       message: "User retrieved successfully",
       data: user,
     });
+    return;
   } catch (error) {
     next(error);
   }

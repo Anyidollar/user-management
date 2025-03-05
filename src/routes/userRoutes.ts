@@ -1,5 +1,5 @@
 import express from "express";
-import { userRegister } from "../controllers/userController/userRegister";
+import { userRegister } from "../controllers/userController/createUser";
 import { getUsers } from "../controllers/userController/getUsers";
 import { getUserCount } from "../controllers/userController/getUserCount";
 import { getUserById } from "../controllers/userController/getUserById";
