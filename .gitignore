@@ -1,8 +1,6 @@
 node_modules/
-/.idea/
-*.js.map
-*.map
-*.js
-tsconfig.tsbuildinfo
 .env
-package-lock.json
+dist/
+*.log
+.DS_Store
+
