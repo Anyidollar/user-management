@@ -37,7 +37,7 @@ app.use("/api", indexRoutes_1.default);
 app.use(errorHandler_1.errorHandler);
 // Database connection
 database_1.database
-    .sync({})
+    .sync({ force: true })
     .then(() => {
     if (process.env.NODE_ENV !== "test") {
         console.log("Database is connected successfully");

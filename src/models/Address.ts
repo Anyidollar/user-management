@@ -2,12 +2,15 @@ import { Model, DataTypes } from "sequelize";
 import { database } from "../config/database";
 
 export class Address extends Model {
-  id!: string;
-  userId!: string;
-  street!: string;
-  city!: string;
-  state!: string;
-  zipCode!: string;
+  public id!: string;
+  public userId!: string;
+  public street!: string;
+  public city!: string;
+  public state!: string;
+  public zipCode!: string;
+
+ public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
 }
 
 Address.init(

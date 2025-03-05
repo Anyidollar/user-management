@@ -1,6 +1,5 @@
 import { Model, DataTypes } from "sequelize";
 import { database } from "../config/database";
-import Address from "./Address";
 
 export interface UserAttributes {
   id: string;
@@ -10,8 +9,16 @@ export interface UserAttributes {
   password: string;
 }
 
-export class User extends Model<UserAttributes> {
-  [x: string]: any;
+export class User extends Model<UserAttributes> implements UserAttributes {
+  public id!: string;
+  public email!: string;
+  public firstName!: string;
+  public lastName!: string;
+  public password!: string;
+
+  // Timestamps
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
 }
 
 User.init(
@@ -20,6 +27,7 @@ User.init(
       type: DataTypes.UUID,
       primaryKey: true,
       allowNull: false,
+      defaultValue: DataTypes.UUIDV4,
     },
     firstName: {
       type: DataTypes.STRING,
@@ -41,13 +49,9 @@ User.init(
   },
   {
     sequelize: database,
-    tableName: "User",
+    tableName: "users",
     timestamps: true,
   }
 );
-
-// Define the relationship
-User.hasOne(Address, { foreignKey: "userId", as: "address" });
-Address.belongsTo(User, { foreignKey: "userId", as: "user" });
 
 export default User;

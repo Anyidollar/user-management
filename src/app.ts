@@ -30,7 +30,7 @@ app.use(errorHandler);
 
 // Database connection
 database
-  .sync({})
+  .sync({ force: true })
   .then(() => {
     if (process.env.NODE_ENV !== "test") {
       console.log("Database is connected successfully");
